@@ -4,7 +4,7 @@ import com.newspaper.news.controller.dto.CategoryDto;
 import com.newspaper.news.controller.form.CategoryForm;
 import com.newspaper.news.model.Category;
 import com.newspaper.news.repository.CategoryRepository;
-import com.newspaper.news.model.validations.exceptions.ResourceNotFoundException;
+import com.newspaper.news.services.validations.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,13 +28,13 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryDto findById(Long id) {
         Optional<Category> optional = categoryRepository.findById(id);
-        Category category = optional.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+        Category category = optional.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
 
         return new CategoryDto(category);
     }
     @Transactional
     public CategoryDto insert(CategoryForm form) {
-        Category category = form.converter(categoryRepository);
+        Category category = form.converterToCategory(categoryRepository);
         category = categoryRepository.save(category);
 
         return new CategoryDto(category);

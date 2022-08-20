@@ -33,7 +33,6 @@ public class NewsController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<NewsDto> insert(@RequestBody @Valid NewsForm form, UriComponentsBuilder uriBuilder) {
         NewsDto news = newsService.insert(form);
         URI uri = uriBuilder.path("/news/{id}").buildAndExpand(news.getId()).toUri();

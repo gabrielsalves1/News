@@ -1,4 +1,4 @@
-package com.newspaper.news.model.validations;
+package com.newspaper.news.services.validations;
 
 import java.io.Serializable;
 import java.time.Instant;

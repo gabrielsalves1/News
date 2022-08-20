@@ -2,6 +2,7 @@ package com.newspaper.news.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 
 @Entity
 public class News implements Serializable {
@@ -15,13 +16,17 @@ public class News implements Serializable {
     @JoinColumn(name="category_id")
     private Category category;
 
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private Users user;
     public News() {
     }
 
-    public News(String title, String newsText, Category category) {
+    public News(String title, String newsText, Category category, Users user) {
         this.title = title;
         this.newsText = newsText;
         this.category = category;
+        this.user = user;
     }
     public Long getId() {
         return id;
@@ -49,5 +54,13 @@ public class News implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

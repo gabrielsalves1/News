@@ -1,17 +1,16 @@
 package com.newspaper.news.controller.form;
 
-import com.newspaper.news.controller.dto.CategoryDto;
 import com.newspaper.news.model.Category;
-import com.newspaper.news.model.News;
 import com.newspaper.news.repository.CategoryRepository;
+import com.sun.istack.NotNull;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class CategoryForm implements Serializable {
     public static final long serialVersionUID = 1L;
     private Long id;
+    @NotNull @NotEmpty
     private String name;
 
     public CategoryForm() {
@@ -21,7 +20,7 @@ public class CategoryForm implements Serializable {
         this.name = category.getName();
     }
 
-    public Category converter(CategoryRepository categoryRepository) {
+    public Category converterToCategory(CategoryRepository categoryRepository) {
         return new Category(name);
     }
 

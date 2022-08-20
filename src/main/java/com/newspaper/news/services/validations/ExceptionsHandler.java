@@ -1,7 +1,7 @@
-package com.newspaper.news.model.validations;
+package com.newspaper.news.services.validations;
 
 
-import com.newspaper.news.model.validations.exceptions.ResourceNotFoundException;
+import com.newspaper.news.services.validations.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,12 +13,12 @@ import java.time.Instant;
 @ControllerAdvice
 public class ExceptionsHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<StandardError> entityNotFound(EntityNotFoundException e, HttpServletRequest request) {
         StandardError err = new StandardError();
         err.setTimestamp(Instant.now());
         err.setStatus(HttpStatus.NOT_FOUND.value());
-        err.setError("Resource not found");
+        err.setError("Entity not found");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
 
