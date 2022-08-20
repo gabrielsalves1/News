@@ -1,41 +1,42 @@
 package com.newspaper.news.controller;
 
 import com.newspaper.news.controller.dto.CategoryDto;
-import com.newspaper.news.controller.dto.NewsDto;
-import com.newspaper.news.model.Category;
-import com.newspaper.news.repository.CategoryRepository;
+import com.newspaper.news.controller.form.CategoryForm;
+import com.newspaper.news.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
-
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @GetMapping
-    public List<CategoryDto> list() {
-        List<Category> category = categoryRepository.findAll();
+    public ResponseEntity<List<CategoryDto>> findAll() {
+        List<CategoryDto> categories = categoryService.findAll();
 
-        return CategoryDto.converter(category);
+        return ResponseEntity.ok().body(categories);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> show(@PathVariable Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
+    public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
+        CategoryDto category = categoryService.findById(id);
 
-        if (category.isPresent()) {
-            return ResponseEntity.ok(new CategoryDto(category.get()));
-        }
+        return ResponseEntity.ok().body(category);
+    }
 
-        return ResponseEntity.notFound().build();
+    @PostMapping
+    public ResponseEntity<CategoryDto> insert(@RequestBody @Valid CategoryForm form, UriComponentsBuilder uriBuilder) {
+        CategoryDto category = categoryService.insert(form);
+        URI uri = uriBuilder.path("/news/{id}").buildAndExpand(category.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(category);
     }
 }

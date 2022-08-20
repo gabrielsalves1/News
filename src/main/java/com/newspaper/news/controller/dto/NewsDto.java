@@ -3,10 +3,12 @@ package com.newspaper.news.controller.dto;
 import com.newspaper.news.model.Category;
 import com.newspaper.news.model.News;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NewsDto {
+public class NewsDto implements Serializable {
+    public static final long serialVersionUID = 1L;
     private Long id;
     private String title;
     private String newsText;

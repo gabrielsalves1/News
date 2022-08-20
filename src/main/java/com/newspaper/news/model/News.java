@@ -1,9 +1,11 @@
 package com.newspaper.news.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class News {
+public class News implements Serializable {
+    public static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;

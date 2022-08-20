@@ -6,13 +6,25 @@ import com.newspaper.news.repository.NewsRepository;
 import com.sun.istack.NotNull;
 
 import javax.validation.constraints.NotEmpty;
-public class NewsForm {
+import java.io.Serializable;
+
+public class NewsForm implements Serializable {
+    public static final long serialVersionUID = 1L;
     @NotNull @NotEmpty
     public String title;
     @NotNull @NotEmpty
     public String newsText;
     @NotNull @NotEmpty
     public Category category;
+
+    public NewsForm() {
+    }
+
+    public NewsForm(News news) {
+        this.title = news.getTitle();
+        this.newsText = news.getNewsText();
+        this.category = news.getCategory();
+    }
 
     public String getTitle() {
         return title;
