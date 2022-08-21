@@ -17,24 +17,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
     @Autowired
     private UserService userService;
-
     @GetMapping
     public ResponseEntity<List<UserDto>> findAll() {
         List<UserDto> users = userService.findAll();
 
         return ResponseEntity.ok().body(users);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> findById(@PathVariable Long id) {
         UserDto user = userService.findById(id);
 
         return ResponseEntity.ok().body(user);
     }
-
     @PostMapping
     public ResponseEntity<UserDto> insert(@RequestBody @Valid UserForm form, UriComponentsBuilder uriBuilder) {
         UserDto user = userService.insert(form);
@@ -42,5 +38,10 @@ public class UserController {
 
         return ResponseEntity.created(uri).body(user);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid UserForm form) {
+        UserDto user = userService.update(id, form);
 
+        return ResponseEntity.ok().body(user);
+    }
 }

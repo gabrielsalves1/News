@@ -16,14 +16,9 @@ public class CategoryDto implements Serializable {
         this.name = category.getName();
     }
 
-    public static List<CategoryDto> converter(List<Category> news) {
-        return news.stream().map(CategoryDto::new).collect(Collectors.toList());
-    }
-
     public Long getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }

@@ -15,21 +15,17 @@ public class UserForm implements Serializable {
     private String email;
     public UserForm() {
     }
-
     public UserForm(String name, String email) {
         this.name = name;
         this.email = email;
     }
-
     public String getName() {
         return name;
     }
-
     public String getEmail() {
         return email;
     }
-
-    public Users converterToUser(UserRepository userRepository) {
+    public Users convertToUser(UserRepository userRepository) {
         return new Users(name, email);
     }
 }

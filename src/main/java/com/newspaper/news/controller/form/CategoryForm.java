@@ -12,30 +12,23 @@ public class CategoryForm implements Serializable {
     private Long id;
     @NotNull @NotEmpty
     private String name;
-
     public CategoryForm() {
     }
-
     public CategoryForm(Category category) {
         this.name = category.getName();
     }
-
-    public Category converterToCategory(CategoryRepository categoryRepository) {
+    public Category convertToCategory(CategoryRepository categoryRepository) {
         return new Category(name);
     }
-
     public Long getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
     public void setName(String name) {
         this.name = name;
     }

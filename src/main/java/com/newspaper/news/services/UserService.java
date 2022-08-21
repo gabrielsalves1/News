@@ -1,14 +1,10 @@
 package com.newspaper.news.services;
 
-import com.newspaper.news.controller.dto.CategoryDto;
-import com.newspaper.news.controller.dto.NewsDto;
 import com.newspaper.news.controller.dto.UserDto;
 import com.newspaper.news.controller.form.UserForm;
-import com.newspaper.news.model.Category;
-import com.newspaper.news.model.News;
 import com.newspaper.news.model.Users;
 import com.newspaper.news.repository.UserRepository;
-import com.newspaper.news.services.validations.exceptions.EntityNotFoundException;
+import com.newspaper.news.services.validations.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,14 +29,24 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserDto findById(Long id) {
         Optional<Users> optional = userRepository.findById(id);
-        Users user = optional.orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+        Users user = optional.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 
         return new UserDto(user);
     }
 
     @Transactional
     public UserDto insert(UserForm form) {
-        Users user = form.converterToUser(userRepository);
+        Users user = form.convertToUser(userRepository);
+        user = userRepository.save(user);
+
+        return new UserDto(user);
+    }
+    @Transactional
+    public UserDto update(Long id, UserForm form) {
+        Users user = userRepository.getReferenceById(id);
+
+        user.setName(form.getName());
+        user.setEmail(form.getEmail());
         user = userRepository.save(user);
 
         return new UserDto(user);

@@ -21,17 +21,14 @@ public class NewsForm implements Serializable {
     public Long categoryId;
     @NotNull
     public Long userId;
-
     public NewsForm() {
     }
-
     public NewsForm(News news) {
         this.title = news.getTitle();
         this.newsText = news.getNewsText();
         this.categoryId = news.getCategory().getId();
         this.userId = news.getUser().getId();
     }
-
     public String getTitle() {
         return title;
     }
@@ -44,16 +41,19 @@ public class NewsForm implements Serializable {
     public void setNewsText(String newsText) {
         this.newsText = newsText;
     }
-
-    public Long getCategory_id() {
+    public Long getCategoryId() {
         return categoryId;
     }
-
-    public void setCategory_id(Long categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
-
-    public News converterToNews(CategoryRepository categoryRepository, UserRepository userRepository) {
+    public Long getUserId() {
+        return userId;
+    }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+    public News convertToNews(CategoryRepository categoryRepository, UserRepository userRepository) {
         return new News(title, newsText, categoryRepository.findById(categoryId).get(), userRepository.findById(userId).get());
     }
 }
