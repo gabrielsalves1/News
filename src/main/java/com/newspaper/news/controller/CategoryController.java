@@ -43,4 +43,11 @@ public class CategoryController {
 
         return ResponseEntity.ok().body(category);
     }
+
+    @DeleteMapping
+    public ResponseEntity<CategoryDto> delete(@PathVariable Long id) {
+        categoryService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

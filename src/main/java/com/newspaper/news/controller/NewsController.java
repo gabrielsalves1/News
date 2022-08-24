@@ -43,4 +43,11 @@ public class NewsController {
 
         return ResponseEntity.ok().body(newsDto);
     }
+
+    @DeleteMapping
+    public ResponseEntity<NewsDto> delete(@PathVariable Long id) {
+        newsService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

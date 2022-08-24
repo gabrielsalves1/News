@@ -2,7 +2,6 @@ package com.newspaper.news.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
 
 @Entity
 public class News implements Serializable {
@@ -10,8 +9,8 @@ public class News implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String newsText;
-
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;

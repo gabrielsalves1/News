@@ -1,6 +1,5 @@
 package com.newspaper.news.services.validations;
 
-
 import com.newspaper.news.services.validations.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

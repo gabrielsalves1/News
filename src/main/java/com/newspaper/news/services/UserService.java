@@ -6,6 +6,7 @@ import com.newspaper.news.model.Users;
 import com.newspaper.news.repository.UserRepository;
 import com.newspaper.news.services.validations.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,5 +51,13 @@ public class UserService {
         user = userRepository.save(user);
 
         return new UserDto(user);
+    }
+
+    public void delete(Long id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id not found " + id);
+        }
     }
 }

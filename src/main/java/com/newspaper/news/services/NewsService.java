@@ -8,6 +8,7 @@ import com.newspaper.news.repository.NewsRepository;
 import com.newspaper.news.repository.UserRepository;
 import com.newspaper.news.services.validations.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +64,14 @@ public class NewsService {
 
             return new NewsDto(news);
         } catch(EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Id not found " + id);
+        }
+    }
+
+    public void delete(Long id) {
+        try {
+            newsRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
