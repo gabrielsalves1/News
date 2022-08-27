@@ -1,9 +1,13 @@
 package com.newspaper.news.model;
 
+import org.springframework.data.jpa.repository.Query;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@Entity
+@Entity(name = "tb_news")
 public class News implements Serializable {
     public static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +21,8 @@ public class News implements Serializable {
     @OneToOne
     @JoinColumn(name="user_id")
     private Users user;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private LocalDateTime publicationDate = LocalDateTime.now();
 
     public News() {
     }
@@ -52,5 +58,11 @@ public class News implements Serializable {
     }
     public void setUser(Users user) {
         this.user = user;
+    }
+    public LocalDateTime getPublicationDate() {
+        return publicationDate;
+    }
+    public void setPublicationDate(LocalDateTime publicationDate) {
+        this.publicationDate = publicationDate;
     }
 }

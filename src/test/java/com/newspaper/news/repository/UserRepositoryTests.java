@@ -19,7 +19,7 @@ public class UserRepositoryTests {
     @Test
     public void shouldFindByIdWhenCategoryExists() {
         long id = 1L;
-        String userName = "Gabriel";
+        String userName = "Gabriel Alves";
         Users user = userRepository.findById(id).get();
 
         Assertions.assertEquals(userName, user.getName());
@@ -28,8 +28,8 @@ public class UserRepositoryTests {
     @Test
     public void shouldFindAllCategoryWhenExists() {
         List<Users> list = userRepository.findAll();
-        String userName1 = "Gabriel";
-        String userName2 = "Teste";
+        String userName1 = "Gabriel Alves";
+        String userName2 = "Teste da Silva";
 
         Assertions.assertEquals(userName1, list.get(0).getName());
         Assertions.assertEquals(userName2, list.get(1).getName());

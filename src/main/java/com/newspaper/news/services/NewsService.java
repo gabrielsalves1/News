@@ -40,7 +40,13 @@ public class NewsService {
         Optional<News> optional = newsRepository.findById(id);
         News news = optional.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 
-        return new NewsDto(news);
+        List<News> related = newsRepository.findByCategory_Id(news.getCategory().getId());
+        List<NewsDto> relatedDto = related.stream().map(NewsDto::new).collect(Collectors.toList());
+
+        NewsDto dto = new NewsDto(news);
+        dto.setNewsRelated(relatedDto);
+
+        return dto;
     }
 
     @Transactional
