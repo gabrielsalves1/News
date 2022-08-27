@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -42,6 +43,7 @@ public class UserService {
 
         return new UserDto(user);
     }
+
     @Transactional
     public UserDto update(Long id, UserForm form) {
         Users user = userRepository.getReferenceById(id);
@@ -60,4 +62,5 @@ public class UserService {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
+
 }

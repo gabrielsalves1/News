@@ -23,6 +23,7 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Transactional(readOnly = true)
     public List<CategoryDto> findAll() {
         List<Category> list = categoryRepository.findAll();
@@ -38,6 +39,7 @@ public class CategoryService {
 
         return new CategoryDto(category);
     }
+
     @Transactional
     public CategoryDto insert(CategoryForm form) {
         Category category = form.convertToCategory(categoryRepository);
@@ -45,6 +47,7 @@ public class CategoryService {
 
         return new CategoryDto(category);
     }
+
     @Transactional
     public CategoryDto update(Long id, CategoryForm categoryForm) {
         try {
@@ -66,4 +69,5 @@ public class CategoryService {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
+
 }

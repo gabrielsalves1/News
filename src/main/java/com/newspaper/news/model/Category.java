@@ -9,12 +9,15 @@ import java.io.Serializable;
 @Entity(name = "tb_category")
 public class Category implements Serializable {
     public static final long serialVersionUID = 1L;
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     public String name;
 
     public Category() {
     }
+
     public Category(String name) {
         this.name = name;
     }
@@ -22,10 +25,13 @@ public class Category implements Serializable {
     public Long getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
 }

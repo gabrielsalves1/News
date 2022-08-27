@@ -3,6 +3,7 @@ package com.newspaper.news.controller;
 import com.newspaper.news.controller.dto.CategoryDto;
 import com.newspaper.news.controller.form.CategoryForm;
 import com.newspaper.news.services.CategoryService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,20 +16,24 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
+
     @Autowired
     private CategoryService categoryService;
+
     @GetMapping
     public ResponseEntity<List<CategoryDto>> findAll() {
         List<CategoryDto> categories = categoryService.findAll();
 
         return ResponseEntity.ok().body(categories);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
         CategoryDto category = categoryService.findById(id);
 
         return ResponseEntity.ok().body(category);
     }
+
     @PostMapping
     public ResponseEntity<CategoryDto> insert(@RequestBody @Valid CategoryForm form, UriComponentsBuilder uriBuilder) {
         CategoryDto category = categoryService.insert(form);
@@ -50,4 +55,5 @@ public class CategoryController {
 
         return ResponseEntity.noContent().build();
     }
+
 }

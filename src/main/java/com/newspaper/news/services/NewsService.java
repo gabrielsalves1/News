@@ -22,8 +22,10 @@ public class NewsService {
 
     @Autowired
     private NewsRepository newsRepository;
+
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -81,4 +83,5 @@ public class NewsService {
             throw new ResourceNotFoundException("Id not found " + id);
         }
     }
+
 }
